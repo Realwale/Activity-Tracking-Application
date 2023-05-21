@@ -1,7 +1,7 @@
-package com.example.springboot3todoapplication.services;
+package com.walecode.activitytrackerapp.services;
 
-import com.example.springboot3todoapplication.models.TodoItem;
-import com.example.springboot3todoapplication.repositories.TodoItemRepository;
+import com.walecode.activitytrackerapp.models.TodoItem;
+import com.walecode.activitytrackerapp.repositories.TodoItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,16 @@ public class TodoItemService {
     public Optional<TodoItem> getById(Long id) {
         return todoItemRepository.findById(id);
     }
+    public TodoItem getTask(){
+        User user
 
-    public Iterable<TodoItem> getAll() {
+    }
+
+    public Iterable<TodoItem> getAll(Long id) {
         return todoItemRepository.findAll();
     }
 
-    public TodoItem save(TodoItem todoItem) {
+    public TodoItem save(TodoItem todoItem, Long id) {
         if (todoItem.getId() == null) {
             todoItem.setCreatedAt(Instant.now());
         }

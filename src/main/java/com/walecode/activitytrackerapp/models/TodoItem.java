@@ -1,4 +1,4 @@
-package com.example.springboot3todoapplication.models;
+package com.walecode.activitytrackerapp.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -26,6 +26,14 @@ public class TodoItem implements Serializable {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+
+    private User user;
 
     @Override
     public String toString() {

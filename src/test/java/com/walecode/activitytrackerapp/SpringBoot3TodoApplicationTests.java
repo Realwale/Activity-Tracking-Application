@@ -1,4 +1,4 @@
-package com.example.springboot3todoapplication;
+package com.walecode.activitytrackerapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

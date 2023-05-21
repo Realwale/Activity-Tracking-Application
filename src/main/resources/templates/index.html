@@ -8,7 +8,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>Activity Tracker Application</h1>
+    <h1>Activity Tracker Application</h1><form method="get" th:action="@{/logout}">
+        <button class="btn btn-outline-danger ms-auto" type="submit">Logout</button>
+    </form>
     <hr />
 
     <table class="table table-bordered table-striped">
@@ -17,7 +19,7 @@
             <th>Actions</th>
             <th>Id</th>
             <th>Description</th>
-            <th>Is Complete</th>
+            <th>Status</th>
             <th>Created At</th>
             <th>Updated At</th>
         </tr>
@@ -35,8 +37,8 @@
             <td th:text="${item.id}"></td>
             <td th:text="${item.description}"></td>
             <td>
-                <span th:if="${item.isComplete} == true" th:text="Yes" />
-                <span th:unless="${item.isComplete} == true" th:text="No" />
+                <span th:if="${item.isComplete} == true" th:text="Completed" />
+                <span th:unless="${item.isComplete} == true" th:text="Pending" />
             </td>
             <td th:text="${item.createdAt}"></td>
             <td th:text="${item.updatedAt}"></td>

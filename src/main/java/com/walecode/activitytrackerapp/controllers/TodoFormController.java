@@ -1,10 +1,12 @@
-package com.example.springboot3todoapplication.controllers;
+package com.walecode.activitytrackerapp.controllers;
 
+import com.walecode.activitytrackerapp.models.TodoItem;
+import com.walecode.activitytrackerapp.services.TodoItemService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.springboot3todoapplication.services.TodoItemService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import com.example.springboot3todoapplication.models.TodoItem;
 import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,20 +17,28 @@ public class TodoFormController {
     @Autowired
     private TodoItemService todoItemService;
 
+
     @GetMapping("/create-todo")
-    public String showCreateForm(TodoItem todoItem) {
+    public String showCreateForm(Model model, TodoItem todoItem) {
+        TodoItem newTodo = new TodoItem();
+
+        model.addAttribute("todoItem", newTodo);
         return "new-todo-item";
     }
 
     @PostMapping("/todo")
-    public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model) {
+    public String createTodoItem(@Valid TodoItem todoItem, Model model, HttpServletRequest httpServletRequest) {
+        HttpSession httpSession = httpServletRequest.getSession();
+       Long id = (Long) httpSession.getAttribute("userNumber");
 
         TodoItem item = new TodoItem();
+        model.addAttribute("todoItem");
+
         item.setDescription(todoItem.getDescription());
         item.setIsComplete(todoItem.getIsComplete());
 
-        todoItemService.save(todoItem);
-        return "redirect:/";
+        todoItemService.save(todoItem, id);
+        return "redirect:/app";
     }
 
     @GetMapping("/delete/{id}")
@@ -38,7 +48,7 @@ public class TodoFormController {
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
 
         todoItemService.delete(todoItem);
-        return "redirect:/";
+        return "redirect:/app";
     }
 
     @GetMapping("/edit/{id}")
@@ -61,8 +71,8 @@ public class TodoFormController {
         item.setIsComplete(todoItem.getIsComplete());
         item.setDescription(todoItem.getDescription());
 
-        todoItemService.save(item);
+        todoItemService.save(item, id);
 
-        return "redirect:/";
+        return "redirect:/app";
     }
 }
