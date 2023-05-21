@@ -1,6 +1,7 @@
 package com.walecode.activitytrackerapp.services;
 
 import com.walecode.activitytrackerapp.models.TodoItem;
+import com.walecode.activitytrackerapp.models.User;
 import com.walecode.activitytrackerapp.repositories.TodoItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,6 @@ public class TodoItemService {
 
     public Optional<TodoItem> getById(Long id) {
         return todoItemRepository.findById(id);
-    }
-    public TodoItem getTask(){
-        User user
-
     }
 
     public Iterable<TodoItem> getAll(Long id) {
